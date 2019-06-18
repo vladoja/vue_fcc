@@ -25,16 +25,18 @@
             <!-- <li v-for="cat in cats">{{cat.name | capitalize | kittyfy}}</li> -->
             <li v-for="cat in cats">{{cat.name}}</li>
         </ul>
-        <cat-list/>
+        <!-- <cat-list v-bind:cats="cats"/> -->
+        <cat-list :cats="cats"/>
     </div>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script>
     Vue.component('cat-list', {
+        props: ['cats'],
         template: `
             <ul>
-                <li>cat</li>
+                <li v-for="cat in cats">{{cat.name}}</li>
             </ul>
            `
     })
