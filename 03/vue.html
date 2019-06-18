@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <h1>
+            {{greeting}}
+        </h1>
+        <br>
+        <p>{{kittyfyName}}</p>
+        <input type="text" @keyup.enter="addKitty" v-model='newCat'>
+        <!-- <button v-on:click.prevent.stop="addKitty">+ADD</button> -->
+        <button v-on:click="addKitty">+ADD</button>
+        <br>
+        <ul>
+            <!-- <li v-for="cat in cats">{{cat.name | capitalize | kittyfy}}</li> -->
+            <li v-for="cat in cats">{{cat.name}}</li>
+        </ul>
+        <cat-list/>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    Vue.component('cat-list', {
+        template: `
+            <ul>
+                <li>cat</li>
+            </ul>
+           `
+    })
+
+    new Vue({
+        el: '#root',
+        component: ['cat-list'],
+        data: {
+            greeting: 'Cats world',
+            newCat: '',
+            cats: [
+                { name: "kitkat" },
+                { name: "Fish" },
+                { name: "Henry" }
+            ]
+        },
+        methods: {
+            addKitty: function () {
+                this.cats.push({ name: this.newCat });
+                // clears newCat
+                this.newCat = '';
+            }
+        },
+        filters: {
+            capitalize: function (val) {
+                return val.toUpperCase();
+            },
+            kittyfy: function (val) {
+                return val + 'y';
+            }
+        },
+        computed: {
+            kittyfyName: function () {
+                if (this.newCat.length > 1) {
+                    return this.newCat + '-y';
+                }
+            }
+        }
+    })
+
+</script>
+
+</html>
