@@ -16,11 +16,13 @@
             {{greeting}}
         </h1>
         <br>
-        <input type="text" v-on:keyup.enter="addKitty" v-model='newCat'>
+        <input type="text" @keyup.enter="addKitty" v-model='newCat'>
+        <!-- <button v-on:click.prevent.stop="addKitty">+ADD</button> -->
         <button v-on:click="addKitty">+ADD</button>
         <br>
         <ul>
-            <li v-for="cat in cats">{{cat.name}}</li>
+            <!-- <li v-for="cat in cats">{{cat.name | capitalize}}</li> -->
+            <li v-for="cat in cats">{{cat.name | capitalize | kittyfy}}</li>
         </ul>
     </div>
 
@@ -42,6 +44,14 @@
                 this.cats.push({ name: this.newCat });
                 // clears newCat
                 this.newCat = '';
+            }
+        },
+        filters: {
+            capitalize: function (val) {
+                return val.toUpperCase();
+            },
+            kittyfy: function (val) {
+                return val + 'y';
             }
         }
     })
