@@ -16,13 +16,14 @@
             {{greeting}}
         </h1>
         <br>
+        <p>{{kittyfyName}}</p>
         <input type="text" @keyup.enter="addKitty" v-model='newCat'>
         <!-- <button v-on:click.prevent.stop="addKitty">+ADD</button> -->
         <button v-on:click="addKitty">+ADD</button>
         <br>
         <ul>
-            <!-- <li v-for="cat in cats">{{cat.name | capitalize}}</li> -->
-            <li v-for="cat in cats">{{cat.name | capitalize | kittyfy}}</li>
+            <!-- <li v-for="cat in cats">{{cat.name | capitalize | kittyfy}}</li> -->
+            <li v-for="cat in cats">{{cat.name}}</li>
         </ul>
     </div>
 
@@ -52,6 +53,13 @@
             },
             kittyfy: function (val) {
                 return val + 'y';
+            }
+        },
+        computed: {
+            kittyfyName: function () {
+                if (this.newCat.length > 1) {
+                    return this.newCat + '-y';
+                }
             }
         }
     })
